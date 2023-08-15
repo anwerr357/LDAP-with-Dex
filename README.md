@@ -1,5 +1,6 @@
 # LDAP-with-Dexdddd
 Implentation of ldap with dex in kubernetes cluster
+Note: this repository prerequests that the kubernetes cluster is already setted in your environement.
 ![Anwer Lahami](https://www.arrikto.com/wp-content/uploads/2019/07/istio-dex-authentication.png)
 ## cert-manager
 cert-manager is used by many Kubeflow components to provide certificates for admission webhooks.
@@ -19,7 +20,7 @@ We will focus on using Istio to perform end-user authentication, meaning that ou
 Authentication, for user access to an application, will be done at the Istio Gateway: the one point where all traffic enters the cluster.
 
 Authentication is a major area that developers may choose to leave up to Istio. The idea is simple:
-
+![Anwer Lahami](https://www.arrikto.com/wp-content/uploads/2019/07/Istio_Gateway_Overview-1024x755.jpg)
 Incoming traffic includes a JSON Web Token (JWT) for authentication.
 The JWT is verified by the Istio Gateway.
 Apps inside the cluster trust the JWT because it has been verified by the Gateway.
