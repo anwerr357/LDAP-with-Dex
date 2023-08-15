@@ -1,4 +1,4 @@
-# LDAP-with-Dexdddd
+# LDAP-with-Dex
 Implentation of ldap with dex in kubernetes cluster
 Note: this repository prerequests that the kubernetes cluster is already setted in your environement.
 ![Anwer Lahami](https://www.arrikto.com/wp-content/uploads/2019/07/istio-dex-authentication.png)
@@ -108,5 +108,6 @@ kubectl create configmap dex \
 ```
 kubectl rollout restart deployment dex -n auth
 ```
-You should be greeted by the Dex login screen
+You should be greeted by the Dex login screen:
+
 ![Anwer Lahami](https://miro.medium.com/max/605/1*glFuBc_JrV063KqGnclvYA.png)
