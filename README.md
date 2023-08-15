@@ -104,7 +104,7 @@ kubectl create configmap dex \
 --from-file=config.yaml=dex-config.yaml \
 -n auth --dry-run -oyaml | kubectl apply -f -
 ```
-###reapply auth
+### reapply auth
 ```
 kubectl rollout restart deployment dex -n auth
 ```
