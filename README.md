@@ -23,4 +23,12 @@ Authentication is a major area that developers may choose to leave up to Istio. 
 ![Anwer Lahami](https://www.arrikto.com/wp-content/uploads/2019/07/Istio_Gateway_Overview-1024x755.jpg)
 Incoming traffic includes a JSON Web Token (JWT) for authentication.
 The JWT is verified by the Istio Gateway.
+### install istio:
+```
+kustomize build common/istio-1-16/istio-crds/base | kubectl apply -f -
+kustomize build common/istio-1-16/istio-namespace/base | kubectl apply -f -
+kustomize build common/istio-1-16/istio-install/base | kubectl apply -f -
+```
+## Dex:
+
 Apps inside the cluster trust the JWT because it has been verified by the Gateway.
