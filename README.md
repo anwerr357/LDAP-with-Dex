@@ -147,3 +147,11 @@ This appendix provides some general information about creating LDAP Data Interch
 ldapsearch -x -H ldap://127.0.0.1:1389 -b dc=example,dc=org -D 'cn=admin,dc=example,dc=org' -w adminpassword
 ```
 Note: do not forget to update your dex file within the right connector for your ldap server e.g:host adress ip ...
+#### to add a namespace after authentification 
+```
+~/manifests/apps/centraldashboard/upstream/base$ cat params.env 
+CD_CLUSTER_DOMAIN=cluster.local
+CD_USERID_HEADER=kubeflow-userid
+CD_USERID_PREFIX=
+CD_REGISTRATION_FLOW=true
+```
