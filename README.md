@@ -111,3 +111,39 @@ kubectl rollout restart deployment dex -n auth
 You should be greeted by the Dex login screen:
 
 ![Anwer Lahami](https://miro.medium.com/max/605/1*glFuBc_JrV063KqGnclvYA.png)
+## OpenLDAP implementation
+Now we will implement an LDAP server on your cluster and create with it a service to be accessible from your localhost
+### 1. Create Namespace and Secret​
+```
+kubectl create ns openldap
+kubectl create secret generic openldap --from-literal=adminpassword=adminpassword --from-literal=users=productionadmin,productionbasic,productionconfig --from-literal=passwords=testpasswordadmin,testpasswordbasic,testpasswordconfig -n openldap
+```
+### 2. Create Deployment​
+```
+cd openldap
+kubectl create -n openldap -f openldap-deployment.yaml
+```
+### 3. Create Service
+
+```
+kubectl create -n openldap -f openldap-service.yaml
+```
+### 4. Verify installation
+```
+watch kubectl get pod -n openldap
+```
+Wait for listed pod to be Ready/Running, press Ctrl+C and proceed to the next step.
+### 5. (In a separate terminal) Initiate service/openldap port-forward
+```
+kubectl port-forward service/openldap -n openldap 1389:1389
+```
+### 6. Add a Group​ using LDIF
+```
+ldapadd -x -H ldap://127.0.0.1:1389 -D "cn=admin,dc=example,dc=org" -w adminpassword -f pacman-admin-group.ldif
+```
+This appendix provides some general information about creating LDAP Data Interchange Files (LDIF) that can be used by the Oracle Internet Directory command-line tools. LDIF files are specially formatted text files that can be used to exchange data between LDAP directory servers, such as Oracle Internet Directory.
+### 7. Verify LDIF Import
+```
+ldapsearch -x -H ldap://127.0.0.1:1389 -b dc=example,dc=org -D 'cn=admin,dc=example,dc=org' -w adminpassword
+```
+Note: do not forget to update your dex file within the right connector for your ldap server e.g:host adress ip ...
